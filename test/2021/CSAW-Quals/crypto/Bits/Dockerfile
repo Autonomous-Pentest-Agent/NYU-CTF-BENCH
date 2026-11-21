@@ -1,4 +1,6 @@
 FROM rust:slim-buster as builder
+RUN sed -i -e 's/deb\.debian\.org/archive.debian.org/g' -e 's/security\.debian\.org/archive.debian.org/g' /etc/apt/sources.list
+RUN echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid
 WORKDIR /app
 COPY Cargo.toml Cargo.lock /app/
 COPY src/lib.rs src/main.rs /app/src/

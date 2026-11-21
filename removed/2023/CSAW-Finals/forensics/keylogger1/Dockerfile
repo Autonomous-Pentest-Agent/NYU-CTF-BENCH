@@ -1,6 +1,8 @@
 #syntax=docker/dockerfile:1
 
 FROM python:3.8-slim-buster
+RUN sed -i -e 's/deb\.debian\.org/archive.debian.org/g' -e 's/security\.debian\.org/archive.debian.org/g' /etc/apt/sources.list
+RUN echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid
 
 WORKDIR /python-docker
 

@@ -1,4 +1,6 @@
 FROM node:18-bullseye-slim
+# apa-patch: base image's own stale security suffix (no-op if absent)
+RUN sed -i -E "s#((deb|security)\.debian\.org/debian-security[^ ]*[[:space:]])([a-zA-Z0-9]+)/updates#\1\3-security#g" /etc/apt/sources.list || true
 
 # RUN apt-get update && apt-get -y install libdrm2 libcups2 libatk-bridge2.0-0 libnspr4 libnss3 libnss3-tools libglib2.0-0 libatk1.0-0
 RUN apt-get update && apt-get install -y git curl libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libstdc++6 ca-certificates fonts-liberation libnss3 libgbm-dev
